@@ -3,6 +3,7 @@ import com.home.crud_clientes.clientes.dto.ClientDTO;
 import com.home.crud_clientes.clientes.entities.Client;
 import com.home.crud_clientes.clientes.repositories.ClientRepository;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,43 +12,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class ClientService {
 
     @Autowired
-    private ClientRepository ClientRepository;
-
-    @Transactional
-    public ClientDTO insert(ClientDTO dto) {
-
-        
-        return null;
-    }
-
-    @Transactional(propagation = Propagation.SUPPORTS)
-    public void delete(Long id) {
-    }
-
-
-    @Transactional
-    public ClientDTO update(Long id, ClientDTO dto) {
-        return null;
-    }
+    private ClientRepository clientRepository;
 
     @Transactional(readOnly = true)
     public ClientDTO findById(Long id) {
 
-        Client client = ClientRepository.findById(id).get();
+        Client client = clientRepository.findById(id).get();
         return new ClientDTO(client);
     }
 
-    @Transactional(readOnly = true)
-    public List<ClientDTO> findAll() {
-        return null;
-    }
-
-    
 
     
     

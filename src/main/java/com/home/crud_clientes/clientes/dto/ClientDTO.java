@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 public class ClientDTO {
 
     private Long id;
-    @NotBlank(message = "Não pode ser vazio")
+    //@NotBlank(message = "Não pode ser vazio")
     private String name;
-    @NotBlank(message = "Campo obrigatório")
+    //@NotBlank(message = "Campo obrigatório")
     private String cpf;
     private Double income;
-    @PastOrPresent(message = "A data de nascimento não pode ser futura")
-    private LocalDate birthData;
+    //@PastOrPresent(message = "A data de nascimento não pode ser futura")
+    private LocalDate birthDate;
     private Integer children;
 
     public ClientDTO(Client client) {
@@ -30,7 +30,7 @@ public class ClientDTO {
         this.name = client.getName();
         this.cpf = client.getCpf();
         this.income = client.getIncome();
-        this.birthData = client.getBirthData();
+        this.birthDate = client.getBirthDate();
         this.children = client.getChildren();
     }
 
