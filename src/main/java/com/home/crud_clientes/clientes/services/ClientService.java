@@ -1,5 +1,6 @@
 package com.home.crud_clientes.clientes.services;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.home.crud_clientes.clientes.dto.ClientDTO;
 import com.home.crud_clientes.clientes.entities.Client;
 import com.home.crud_clientes.clientes.repositories.ClientRepository;
+import com.home.crud_clientes.clientes.services.exceptions.ResourceNotFoundException;
 
 
 @Service
@@ -19,9 +21,14 @@ public class ClientService {
 
     // Busca de recurso por id
     @Transactional(readOnly = true)
+
     public ClientDTO findById(Long id) {
-        Client client = clientRepository.findById(id).get();
+
+        Client client = clientRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
+
         return new ClientDTO(client);
+
     }
 
     // Busca paginada de recursos
@@ -58,28 +65,29 @@ public class ClientService {
     public ClientDTO update(Long id, ClientDTO dto){
 
 
-    //try{
+    try{
         Client client = clientRepository.getReferenceById(id);
         copyDtoToEntity(dto, client);
         client = clientRepository.save(client);
         return new ClientDTO(client);
-    /*
+    
     }
     catch (Exception e){
-        throw new IllegalArgumentException("Cliente não encontrado");
+        throw new ResourceNotFoundException("Cliente não encontrado");
     }
-        */
         
-    }
-
-
+        
+}
 
     // Deletar recurso
 
     @Transactional(propagation = Propagation.SUPPORTS)
-
     public void delete(Long id){
-        clientRepository.deleteById(id);
+        if(!clientRepository.existsById(id)){
+            throw new ResourceNotFoundException("Cliente não encontrado");
+        }else
+            clientRepository.deleteById(id);
+
     }
 
 
