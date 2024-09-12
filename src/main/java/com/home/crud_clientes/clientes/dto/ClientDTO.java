@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 public class ClientDTO {
 
     private Long id;
-    //@NotBlank(message = "Não pode ser vazio")
+    @NotBlank(message = "Não pode ser vazio")
     private String name;
-    //@NotBlank(message = "Campo obrigatório")
+    @NotBlank(message = "Campo obrigatório")
     private String cpf;
     private Double income;
-    //@PastOrPresent(message = "A data de nascimento não pode ser futura")
+    @PastOrPresent(message = "A data de nascimento não pode ser futura")
     private LocalDate birthDate;
     private Integer children;
 
