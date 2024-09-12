@@ -1,7 +1,8 @@
 package com.home.crud_clientes.clientes.controllers;
 import com.home.crud_clientes.clientes.dto.ClientDTO;
-import com.home.crud_clientes.clientes.entities.Client;
 import com.home.crud_clientes.clientes.services.ClientService;
+
+import jakarta.validation.Valid;
 
 import java.net.URI;
 
@@ -43,7 +44,7 @@ public class ClientController {
     // Inserir novo recurso
 
     @PostMapping(value = "/save")
-    public ResponseEntity<ClientDTO> save(@RequestBody ClientDTO clientDTO){
+    public ResponseEntity<ClientDTO> save(@Valid @RequestBody ClientDTO clientDTO){
 
         ClientDTO dto = clientService.insert(clientDTO);
 
@@ -57,7 +58,7 @@ public class ClientController {
     // Atualizar recurso
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto){
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id,@Valid @RequestBody ClientDTO dto){
         dto = clientService.update(id, dto);
         return ResponseEntity.ok().body(dto);
 
