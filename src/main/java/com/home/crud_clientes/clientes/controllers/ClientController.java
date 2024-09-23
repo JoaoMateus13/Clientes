@@ -23,7 +23,7 @@ public class ClientController {
 
 
     // Busca paginada de recursos
-    @GetMapping(value = "/page")
+    @GetMapping
     public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable) {
         Page<ClientDTO> list = clientService.findAll(pageable);
         return ResponseEntity.ok().body(list);
@@ -43,7 +43,7 @@ public class ClientController {
 
     // Inserir novo recurso
 
-    @PostMapping(value = "/save")
+    @PostMapping
     public ResponseEntity<ClientDTO> save(@Valid @RequestBody ClientDTO clientDTO){
 
         ClientDTO dto = clientService.insert(clientDTO);
